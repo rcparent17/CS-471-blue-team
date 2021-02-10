@@ -8,6 +8,7 @@
 
 - [ ] Updated sterotypes list
 - [ ] Added `CRC` cards for classes added
+- [ ] Updated `dependencies.sh`
 
 ## Testing and Style
 
