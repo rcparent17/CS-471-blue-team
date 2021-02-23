@@ -136,10 +136,10 @@ def updateInventory(ID, name, cost, stock):
     conn.commit()
     conn.close()
 
-def addInventory(ID, name, cost, stock):
-    conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
-    query = 'INSERT INTO "Inventory"(ID,Name,Cost,Stock) VALUES(?,?,?,?)'
-    args = (ID, name, cost, stock)
+def addInventory(name, cost, stock):
+    conn = sqlite3.connect("../../database/motorcycle_shop.db")
+    query = 'INSERT INTO Inventory (Name,Cost,Stock) VALUES(?,?,?)'
+    args = (name, cost, stock)
     cursor = conn.cursor()
     cursor.execute(query, args)
     conn.commit()
