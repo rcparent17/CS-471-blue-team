@@ -1,8 +1,9 @@
 import sqlite3
+import databaseClasses
 
 
 def addEmployeeWorkTime(full_name, hours, last_clock_in, last_clock_out):
-    conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
+    conn = sqlite3.connect("../../database/motorcycle_shop.db")
     query = 'INSERT INTO "Employee Work Time"(FullName,Hours,"Last Clock In","Last Clock Out") VALUES(?,?,?,?)'
     args = (full_name, hours, last_clock_in, last_clock_out)
     cursor = conn.cursor()
@@ -57,9 +58,12 @@ def getEmployeeWorkTimeByFullName(full_name):
     cursor = conn.cursor()
     args = (full_name,)
     cursor.execute(query, args)
+    value_out = cursor.fetchone()
     conn.commit()
     conn.close()
-    return cursor.fetchone()
+    return databaseClasses.EmployeeWorkTime(
+        value_out[0], value_out[1], value_out[2], value_out[3]
+    )
 
 
 def getInventoryByID(ID):
@@ -68,9 +72,12 @@ def getInventoryByID(ID):
     cursor = conn.cursor()
     args = (ID,)
     cursor.execute(query, args)
+    returnedValue = cursor.fetchone()
     conn.commit()
     conn.close()
-    return cursor.fetchone()
+    return databaseClasses.Inventory(
+        returnedValue[0], returnedValue[1], returnedValue[2], returnedValue[3]
+    )
 
 
 def getTransactionByID(ID):
@@ -79,9 +86,16 @@ def getTransactionByID(ID):
     cursor = conn.cursor()
     args = (ID,)
     cursor.execute(query, args)
+    returnedValue = cursor.fetchone()
     conn.commit()
     conn.close()
-    return cursor.fetchone()
+    return databaseClasses.Transactions(
+        returnedValue[0],
+        returnedValue[1],
+        returnedValue[2],
+        returnedValue[3],
+        returnedValue[4],
+    )
 
 
 def getUserAccessesByID(ID):
@@ -90,9 +104,12 @@ def getUserAccessesByID(ID):
     cursor = conn.cursor()
     args = (ID,)
     cursor.execute(query, args)
+    returnedValue = cursor.fetchone()
     conn.commit()
     conn.close()
-    return cursor.fetchone()
+    return databaseClasses.UserAccesses(
+        returnedValue[0], returnedValue[1], returnedValue[2], returnedValue[3]
+    )
 
 
 def getUsersByUsername(username):
@@ -101,9 +118,10 @@ def getUsersByUsername(username):
     cursor = conn.cursor()
     args = (username,)
     cursor.execute(query, args)
+    returnedValue = cursor.fetchone()
     conn.commit()
     conn.close()
-    return cursor.fetchone()
+    return databaseClasses.Users(returnedValue[0], returnedValue[1], returnedValue[2])
 
 
 def getWorkOrdersByID(ID):
@@ -112,9 +130,17 @@ def getWorkOrdersByID(ID):
     cursor = conn.cursor()
     args = (ID,)
     cursor.execute(query, args)
+    returnedValue = cursor.fetchone()
     conn.commit()
     conn.close()
-    return cursor.fetchone()
+    return databaseClasses.UserAccesses(
+        returnedValue[0],
+        returnedValue[1],
+        returnedValue[2],
+        returnedValue[3],
+        returnedValue[4],
+        returnedValue[5],
+    )
 
 
 def updateEmployeeWorkTime(full_name, hours, last_clock_in, last_clock_out):
