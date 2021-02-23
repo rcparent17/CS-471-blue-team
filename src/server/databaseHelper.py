@@ -75,7 +75,7 @@ def getInventoryByID(ID):
 
 def getTransactionByID(ID):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
-    query = "SELECT * FROM Transcation WHERE ID=?"
+    query = "SELECT * FROM Transaction WHERE ID=?"
     cursor = conn.cursor()
     args = (ID,)
     cursor.execute(query, args)
@@ -136,10 +136,18 @@ def updateInventory(ID, name, cost, stock):
     conn.commit()
     conn.close()
 
+def addInventory(ID, name, cost, stock):
+    conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
+    query = 'INSERT INTO "Inventory"(ID,Name,Cost,Stock) VALUES(?,?,?,?)'
+    args = (ID, name, cost, stock)
+    cursor = conn.cursor()
+    cursor.execute(query, args)
+    conn.commit()
+    conn.close()
 
 def updateTransactions(ID, total_cost, time, items, customer_name):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
-    query = 'UPDATE Inventory SET "Total Cost"=?, Time=?, Items=?, "Customer Name"=?  WHERE ID=?'
+    query = 'UPDATE Transaction SET "Total Cost"=?, Time=?, Items=?, "Customer Name"=?  WHERE ID=?'
     cursor = conn.cursor()
     args = (total_cost, time, items, customer_name, ID)
     cursor.execute(query, args)
