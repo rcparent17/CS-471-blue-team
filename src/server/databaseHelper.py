@@ -1,5 +1,5 @@
 import sqlite3
-import * from databaseClasses
+from databaseClasses import *
 
 
 def addEmployeeWorkTime(full_name, hours, last_clock_in, last_clock_out):
@@ -61,9 +61,7 @@ def getEmployeeWorkTimeByFullName(full_name):
     value_out = cursor.fetchone()
     conn.commit()
     conn.close()
-    return EmployeeWorkTime(
-        value_out[0], value_out[1], value_out[2], value_out[3]
-    )
+    return EmployeeWorkTime(value_out[0], value_out[1], value_out[2], value_out[3])
 
 
 def getInventoryByID(ID):
