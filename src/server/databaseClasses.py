@@ -7,16 +7,16 @@ class EmployeeWorkTime:
 
 
 class Inventory:
-    def __init__(self, ID, name, cost, stock):
-        self.ID = ID
+    def __init__(self, id, name, cost, stock):
+        self.id = id
         self.name = name
         self.cost = cost
         self.stock = stock
 
 
 class Transactions:
-    def __init__(self, ID, total_cost, time, items, customer_name):
-        self.ID = ID
+    def __init__(self, id, total_cost, time, items, customer_name):
+        self.id = id
         self.total_cost = total_cost
         self.time = time
         self.items = items
@@ -24,8 +24,8 @@ class Transactions:
 
 
 class UserAccesses:
-    def __init__(self, ID, username, time, type):
-        self.ID = ID
+    def __init__(self, id, username, time, type):
+        self.id = id
         self.username = username
         self.time = time
         self.type = type
@@ -39,8 +39,8 @@ class Users:
 
 
 class WorkOrders:
-    def __init__(self, ID, name, items, time_created, time_started, time_finished):
-        self.ID = ID
+    def __init__(self, id, name, items, time_created, time_started, time_finished):
+        self.id = id
         self.name = name
         self.items = items
         self.time_created = time_created

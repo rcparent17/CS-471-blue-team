@@ -1,5 +1,5 @@
 import sqlite3
-import databaseClasses
+import * from databaseClasses
 
 
 def addEmployeeWorkTime(full_name, hours, last_clock_in, last_clock_out):
@@ -61,7 +61,7 @@ def getEmployeeWorkTimeByFullName(full_name):
     value_out = cursor.fetchone()
     conn.commit()
     conn.close()
-    return databaseClasses.EmployeeWorkTime(
+    return EmployeeWorkTime(
         value_out[0], value_out[1], value_out[2], value_out[3]
     )
 
@@ -75,7 +75,7 @@ def getInventoryByID(ID):
     returnedValue = cursor.fetchone()
     conn.commit()
     conn.close()
-    return databaseClasses.Inventory(
+    return Inventory(
         returnedValue[0], returnedValue[1], returnedValue[2], returnedValue[3]
     )
 
@@ -89,7 +89,7 @@ def getTransactionByID(ID):
     returnedValue = cursor.fetchone()
     conn.commit()
     conn.close()
-    return databaseClasses.Transactions(
+    return Transactions(
         returnedValue[0],
         returnedValue[1],
         returnedValue[2],
@@ -107,7 +107,7 @@ def getUserAccessesByID(ID):
     returnedValue = cursor.fetchone()
     conn.commit()
     conn.close()
-    return databaseClasses.UserAccesses(
+    return UserAccesses(
         returnedValue[0], returnedValue[1], returnedValue[2], returnedValue[3]
     )
 
@@ -121,7 +121,7 @@ def getUsersByUsername(username):
     returnedValue = cursor.fetchone()
     conn.commit()
     conn.close()
-    return databaseClasses.Users(returnedValue[0], returnedValue[1], returnedValue[2])
+    return Users(returnedValue[0], returnedValue[1], returnedValue[2])
 
 
 def getWorkOrdersByID(ID):
@@ -133,7 +133,7 @@ def getWorkOrdersByID(ID):
     returnedValue = cursor.fetchone()
     conn.commit()
     conn.close()
-    return databaseClasses.UserAccesses(
+    return UserAccesses(
         returnedValue[0],
         returnedValue[1],
         returnedValue[2],
