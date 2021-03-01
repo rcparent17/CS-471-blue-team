@@ -9,12 +9,18 @@ class EmployeeWorkTime:
 class Inventory:
     def __init__(self, id, name, cost, stock):
         self.id = id
-        self.name = name
+        self.name: str = name
         self.cost = cost
-        self.stock = stock
+        self.stock: int = stock
 
 
-class Transactions:
+class Transaction:
+    """
+    Note: the id should be None when being created
+    to be inserted into the database. It should be
+    some number when pulled from the database
+    """
+
     def __init__(self, id, total_cost, time, items, customer_name):
         self.id = id
         self.total_cost = total_cost

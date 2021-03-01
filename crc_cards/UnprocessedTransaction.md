@@ -8,7 +8,7 @@ and items validated
 <!-- List out the key attributes of the class here -->
 * List\<Item>
 * Time
-* Payment
+* List\<Payment>
 
 ## Responsibilities
 

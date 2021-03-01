@@ -3,6 +3,7 @@ from databaseClasses import *
 
 dbPath = "../../database/motorcycle_shop.db"
 
+
 def addEmployeeWorkTime(full_name, hours, last_clock_in, last_clock_out):
     conn = sqlite3.connect(dbPath)
     query = 'INSERT INTO "Employee Work Time"(FullName,Hours,"Last Clock In","Last Clock Out") VALUES(?,?,?,?)'
@@ -79,6 +80,21 @@ def getInventoryByID(ID):
     )
 
 
+def getInventoryByName(name):
+    conn = sqlite3.connect(dbPath)
+    query = "SELECT * FROM Inventory WHERE Name=?"
+    cursor = conn.cursor()
+    args = (name,)
+    cursor.execute(query, args)
+    returnedValue = cursor.fetchone()
+    conn.commit()
+    conn.close()
+    if returnedValue:
+        return Inventory(
+            returnedValue[0], returnedValue[1], returnedValue[2], returnedValue[3]
+        )
+
+
 def getTransactionByID(ID):
     conn = sqlite3.connect(dbPath)
     query = "SELECT * FROM Transaction WHERE ID=?"
@@ -88,7 +104,7 @@ def getTransactionByID(ID):
     returnedValue = cursor.fetchone()
     conn.commit()
     conn.close()
-    return Transactions(
+    return Transaction(
         returnedValue[0],
         returnedValue[1],
         returnedValue[2],
@@ -164,7 +180,7 @@ def updateInventory(ID, name, cost, stock):
 
 def addInventory(name, cost, stock):
     conn = sqlite3.connect(dbPath)
-    query = 'INSERT INTO Inventory (Name,Cost,Stock) VALUES(?,?,?)'
+    query = "INSERT INTO Inventory (Name,Cost,Stock) VALUES(?,?,?)"
     args = (name, cost, stock)
     cursor = conn.cursor()
     cursor.execute(query, args)

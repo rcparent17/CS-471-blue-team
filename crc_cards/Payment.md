@@ -1,5 +1,6 @@
 # Payment
 
+**Abstract**
 Some form of payment from a customer.
 
 ## Details
