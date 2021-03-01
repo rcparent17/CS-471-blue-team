@@ -106,15 +106,16 @@ def getUsersByUsername(username):
     return cursor.fetchone()
 
 
-def getWorkOrdersByID(ID):
+def getWorkOrderByID(ID):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
     query = 'SELECT * FROM "Work Orders" WHERE ID=?'
     cursor = conn.cursor()
     args = (ID,)
     cursor.execute(query, args)
+    result = cursor.fetchone()
     conn.commit()
     conn.close()
-    return cursor.fetchone()
+    return result
 
 
 def updateEmployeeWorkTime(full_name, hours, last_clock_in, last_clock_out):
@@ -167,7 +168,7 @@ def updateUser(username, permission, password):
     conn.close()
 
 
-def updateWorkOrders(ID, name, items, time_created, time_started, time_finished):
+def updateWorkOrder(ID, name, items, time_created, time_started, time_finished):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
     query = 'UPDATE "Work Orders" SET Name=?, Items=?, "Time Created"=?, "Time Started"=?, "Time Finished"=?  WHERE ID=?'
     cursor = conn.cursor()
