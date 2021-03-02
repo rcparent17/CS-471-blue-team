@@ -157,4 +157,4 @@ class UnprocessedTransaction:
             )
 
         # The transaction is processed!
-        ProcessedTransaction.from_unprocessed(self)
+        return ProcessedTransaction.from_unprocessed(self)
