@@ -1,4 +1,4 @@
-# Example
+# Users
 <!-- Give a small description here -->
 
 ## Details
