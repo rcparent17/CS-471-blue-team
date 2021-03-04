@@ -62,33 +62,33 @@ def getEmployeeWorkTimeByFullName(full_name):
     return cursor.fetchone()
 
 
-def getInventoryByID(ID):
+def getInventoryByID(id):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
     query = "SELECT * FROM Inventory WHERE ID=?"
     cursor = conn.cursor()
-    args = (ID,)
+    args = (id,)
     cursor.execute(query, args)
     conn.commit()
     conn.close()
     return cursor.fetchone()
 
 
-def getTransactionByID(ID):
+def getTransactionByID(id):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
     query = "SELECT * FROM Transcation WHERE ID=?"
     cursor = conn.cursor()
-    args = (ID,)
+    args = (id,)
     cursor.execute(query, args)
     conn.commit()
     conn.close()
     return cursor.fetchone()
 
 
-def getUserAccessesByID(ID):
+def getUserAccessesByID(id):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
     query = 'SELECT * FROM "User Accesses" WHERE ID=?'
     cursor = conn.cursor()
-    args = (ID,)
+    args = (id,)
     cursor.execute(query, args)
     conn.commit()
     conn.close()
@@ -106,11 +106,11 @@ def getUsersByUsername(username):
     return cursor.fetchone()
 
 
-def getWorkOrderByID(ID):
+def getWorkOrderByID(id):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
     query = 'SELECT * FROM "Work Orders" WHERE ID=?'
     cursor = conn.cursor()
-    args = (ID,)
+    args = (id,)
     cursor.execute(query, args)
     result = cursor.fetchone()
     conn.commit()
@@ -128,31 +128,31 @@ def updateEmployeeWorkTime(full_name, hours, last_clock_in, last_clock_out):
     conn.close()
 
 
-def updateInventory(ID, name, cost, stock):
+def updateInventory(id, name, cost, stock):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
     query = "UPDATE Inventory SET Name=?, Cost=?, Stock=?  WHERE ID=?"
     cursor = conn.cursor()
-    args = (name, cost, stock, ID)
+    args = (name, cost, stock, id)
     cursor.execute(query, args)
     conn.commit()
     conn.close()
 
 
-def updateTransactions(ID, total_cost, time, items, customer_name):
+def updateTransactions(id, total_cost, time, items, customer_name):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
     query = 'UPDATE Inventory SET "Total Cost"=?, Time=?, Items=?, "Customer Name"=?  WHERE ID=?'
     cursor = conn.cursor()
-    args = (total_cost, time, items, customer_name, ID)
+    args = (total_cost, time, items, customer_name, id)
     cursor.execute(query, args)
     conn.commit()
     conn.close()
 
 
-def updateUserAccesses(ID, username, time, type):
+def updateUserAccesses(id, username, time, type):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
     query = 'UPDATE "User Accesses" SET Username=?, Time=?, Time=?  WHERE ID=?'
     cursor = conn.cursor()
-    args = (username, time, type, ID)
+    args = (username, time, type, id)
     cursor.execute(query, args)
     conn.commit()
     conn.close()
@@ -168,11 +168,11 @@ def updateUser(username, permission, password):
     conn.close()
 
 
-def updateWorkOrder(ID, name, items, time_created, time_started, time_finished):
+def updateWorkOrder(id, name, items, time_created, time_started, time_finished):
     conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
     query = 'UPDATE "Work Orders" SET Name=?, Items=?, "Time Created"=?, "Time Started"=?, "Time Finished"=?  WHERE ID=?'
     cursor = conn.cursor()
-    args = (name, items, time_created, time_started, time_finished, ID)
+    args = (name, items, time_created, time_started, time_finished, id)
     cursor.execute(query, args)
     conn.commit()
     conn.close()
