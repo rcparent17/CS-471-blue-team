@@ -97,7 +97,7 @@ def getInventoryByName(name):
 
 def getTransactionByID(id):
     conn = sqlite3.connect(dbPath)
-    query = "SELECT * FROM Transcation WHERE ID=?"
+    query = "SELECT * FROM Transaction WHERE ID=?"
     cursor = conn.cursor()
     args = (id,)
     cursor.execute(query, args)
@@ -139,7 +139,7 @@ def getUsersByUsername(username):
     return Users(returnedValue[0], returnedValue[1], returnedValue[2])
 
 def getWorkOrderByID(id):
-    conn = sqlite3.connect("..\\..\\database\\motorcycle_shop.db")
+    conn = sqlite3.connect(dbPath)
     query = 'SELECT * FROM "Work Orders" WHERE ID=?'
     cursor = conn.cursor()
     args = (id,)
