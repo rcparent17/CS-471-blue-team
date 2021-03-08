@@ -1,4 +1,8 @@
 import xmlrpc.client
+import pickle
+import getpass
+
+current_user = ""
 
 # Establish connection with an XML-RPC server
 # See docs.python.org/3/library/xmlrpc.client.html for more
@@ -24,16 +28,29 @@ def configServer():
     # Return tuple containing server details in case useful
     return (address, port, server)
 
-
+# handles logging into the server
+def login_to_server(server, username, password):
+    logged_in_user = server.login(username, password)
+    if logged_in_user == "login###failed":
+        print("Login failed, either password is incorrect or user " + username + " does not exist.")
+        return False
+    current_user = logged_in_user
+    return True
 
 # Main
 address = None
 port    = None
 server  = None
 
+username = input("Username: ")
+password = getpass.getpass()
+
 (address, port, server) = configServer()
 if(address is not None):
-    print("Connection established successfully")
+    if (login_to_server(server, username, password)):
+        print("Connection established successfully")
+    else:
+        print("Connection established, but login failed")
 else:
     quit()
 

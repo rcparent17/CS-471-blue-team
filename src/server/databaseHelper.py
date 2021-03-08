@@ -225,3 +225,13 @@ def updateWorkOrder(id, name, items, time_created, time_started, time_finished):
     cursor.execute(query, args)
     conn.commit()
     conn.close()
+
+def getAllUsers():
+    conn = sqlite3.connect(dbPath)
+    cursor = conn.cursor()
+    query = "SELECT * FROM Users"
+    cursor.execute(query, ())
+    users = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    return users
