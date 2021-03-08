@@ -1,7 +1,11 @@
 from xmlrpc.server import SimpleXMLRPCServer
+import databaseHelper
 
 # Default fields
 port = 5258
+
+# each entry is formatted like this: {username (str): permissions (int)}
+logged_in_users = {}
 
 ########################
 # Function Definitions #
@@ -11,7 +15,14 @@ port = 5258
 def pong():
     return True
 
-
+# Used to log a user in
+def login(username, password):
+    registered_users = databaseHelper.getAllUsers()
+    for user in registered_users:
+        if user[0] == username and user[2] == password:
+            logged_in_users[username] = int(user[1])
+            return username
+    return "login###failed"
 
 ################
 # Start Server #
@@ -26,6 +37,7 @@ server = SimpleXMLRPCServer(('127.0.0.1', port), logRequests=True)
 
 # Register functions - enables RPC calls
 server.register_function(pong)
+server.register_function(login)
 
 
 
