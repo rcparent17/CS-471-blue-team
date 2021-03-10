@@ -26,15 +26,6 @@ def configServer(address, port):
     # Return tuple containing server details in case useful
     return server
 
-# handles logging into the server
-def login_to_server(server, username, password):
-    logged_in_user = server.login(username, password)
-    if logged_in_user == "login###failed":
-        print("Login failed, either password is incorrect or user " + username + " does not exist.")
-        return False
-    current_user = logged_in_user
-    return True
-
 # Main
 def main():
     address = "127.0.0.1"
