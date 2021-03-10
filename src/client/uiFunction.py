@@ -18,10 +18,11 @@ import sys
 #This class will be in charge of handling of UIs. This includes closing and opening the UIs
 class UIHandler():
 
-    def __init__(self):
+    def __init__(self, server):
         self.app = QtWidgets.QApplication(sys.argv)
         self.ui = None
         self.currWindow = QtWidgets.QMainWindow()
+        self.server = server
         self.switchto_Login()
         pass
     
@@ -31,7 +32,7 @@ class UIHandler():
         pass
     
     def switchto_Login(self):
-        self.ui = LoginHandler(self)
+        self.ui = LoginHandler(self, self.server)
         self.ui.setup_UI(self.currWindow)
         self.ui.assign_Buttons()
         pass
@@ -52,9 +53,10 @@ class UIHandler():
 #LoginHandler
 class LoginHandler():
     
-    def __init__(self, parent):
+    def __init__(self, parent, server):
         self.ui = None
         self.parent = parent
+        self.server = server
         pass
 
     def setup_UI(self, window):
@@ -68,7 +70,12 @@ class LoginHandler():
         pass
 
     def Button_Login_Function(self):
+        logged_in_user = self.server.login(self.ui.lineEdit.text(), self.ui.lineEdit_2.text())
+        if logged_in_user == "login###failed":
+            print("Login failed, either password is incorrect or user " + self.ui.lineEdit.text() + " does not exist.")
+            return False
         self.parent.switchto_Employee()
+        current_user = logged_in_user
         pass
 
     def Button_Quit_Function(self):

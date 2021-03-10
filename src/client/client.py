@@ -1,7 +1,8 @@
 import xmlrpc.client
-import sys
-from PyQt5 import QtWidgets
+import pickle
 import uiFunction
+
+current_user = ""
 
 # Establish connection with an XML-RPC server
 # See docs.python.org/3/library/xmlrpc.client.html for more
@@ -23,9 +24,16 @@ def configServer(address, port):
         return ("0.0.0.0", "00000", None)
 
     # Return tuple containing server details in case useful
-    return (address, port, server)
+    return server
 
-
+# handles logging into the server
+def login_to_server(server, username, password):
+    logged_in_user = server.login(username, password)
+    if logged_in_user == "login###failed":
+        print("Login failed, either password is incorrect or user " + username + " does not exist.")
+        return False
+    current_user = logged_in_user
+    return True
 
 # Main
 def main():
@@ -33,16 +41,13 @@ def main():
     port    = "5258"
     server  = None
 
-    (address, port, server) = configServer(address, port)
+    server = configServer(address, port)
     if(address is not None):
-        #The program has connected to the server
         print("Connection established successfully")
-        guiController = uiFunction.UIHandler()
-        guiController.main_Loop()
-
+        guiHandler = uiFunction.UIHandler(server)
+        guiHandler.main_Loop()
     else:
         quit()
 
-#entry point
 if __name__ == "__main__":
     main()
