@@ -1,4 +1,7 @@
 import xmlrpc.client
+import sys
+from PyQt5 import QtWidgets
+import uiFunction
 
 # Establish connection with an XML-RPC server
 # See docs.python.org/3/library/xmlrpc.client.html for more
@@ -7,9 +10,7 @@ import xmlrpc.client
 #   N/A         String          Server Address
 #               String          RPC port
 #               ServerProxy     Server object
-def configServer():
-    address = input("Server address: ")
-    port    = input("Listening port: ")
+def configServer(address, port):
 
     # ServerProxy object - manages communication with remote server
     server = xmlrpc.client.ServerProxy("http://" + address + ":" + port)
@@ -27,13 +28,21 @@ def configServer():
 
 
 # Main
-address = None
-port    = None
-server  = None
+def main():
+    address = "127.0.0.1"
+    port    = "5258"
+    server  = None
 
-(address, port, server) = configServer()
-if(address is not None):
-    print("Connection established successfully")
-else:
-    quit()
+    (address, port, server) = configServer(address, port)
+    if(address is not None):
+        #The program has connected to the server
+        print("Connection established successfully")
+        guiController = uiFunction.UIHandler()
+        guiController.main_Loop()
 
+    else:
+        quit()
+
+#entry point
+if __name__ == "__main__":
+    main()
