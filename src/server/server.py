@@ -1,5 +1,6 @@
 from xmlrpc.server import SimpleXMLRPCServer
 import databaseHelper
+import work_orders
 
 # Default fields
 port = 5258
@@ -15,6 +16,7 @@ logged_in_users = {}
 def pong():
     return True
 
+
 # Used to log a user in
 def login(username, password):
     registered_users = databaseHelper.getAllUsers()
@@ -24,21 +26,26 @@ def login(username, password):
             return username
     return "login###failed"
 
+
+def assign_mechanic(id, worker_name):
+    work_orders.assign_mechanic_work_order(id, worker_name)
+
+
 ################
 # Start Server #
 ################
 
 # Set up logging
-#logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
 
 # Instantiate server
 # See docs.python.org/3/library/xmlrpc.server.html for more
-server = SimpleXMLRPCServer(('127.0.0.1', port), logRequests=True)
+server = SimpleXMLRPCServer(("127.0.0.1", port), logRequests=True)
 
 # Register functions - enables RPC calls
 server.register_function(pong)
 server.register_function(login)
-
+server.register_function(assign_mechanic)
 
 
 ##################
@@ -46,7 +53,7 @@ server.register_function(login)
 ##################
 
 try:
-    print('Use Control-C to exit')
+    print("Use Control-C to exit")
     server.serve_forever()
 except KeyboardInterrupt:
-    print('Exiting')
+    print("Exiting")
