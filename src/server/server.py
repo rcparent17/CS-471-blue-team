@@ -30,13 +30,30 @@ def login(username, password):
 
 
 def get_all_inventory() -> List[tuple]:
+    """
+    Returns a list of tuples of the form
+    (ID, Name, Cost, Stock)
+    representing the current inventory database
+    """
     inventory = databaseHelper.getAllInventory()
     return inventory
 
 
-def submit_transaction(
-    payments: List[str], item_names: List[str], customer_name: str
-) -> str:
+def submit_transaction(payments, item_names, customer_name) -> str:
+    """
+    Arguments:
+    payment - a list of strings of one of the following forms
+      * cash #.#
+      * credit #.# <card number> <zip code>
+      * member #.# <card_number> <member_pin>
+      where #.# is a dollar and cent amount, like 245.32
+
+    item_names - a list of strings of the names of the items being bought.
+                 if an item is bought more than once, put it in the list
+                 more than once
+
+    customer_name - The name of the customer
+    """
     if item_names and payments:
         constructed_payments = []
         for payment in payments:
@@ -85,6 +102,8 @@ def main():
     # Register functions - enables RPC calls
     server.register_function(pong)
     server.register_function(login)
+    server.register_function(get_all_inventory)
+    server.register_function(submit_transaction)
 
     ##################
     # Listen Forever #
