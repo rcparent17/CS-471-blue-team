@@ -138,6 +138,7 @@ def getUsersByUsername(username):
     conn.close()
     return Users(returnedValue[0], returnedValue[1], returnedValue[2])
 
+
 def getWorkOrderByID(id):
     conn = sqlite3.connect(dbPath)
     query = 'SELECT * FROM "Work Orders" WHERE ID=?'
@@ -226,6 +227,7 @@ def updateWorkOrder(id, name, items, time_created, time_started, time_finished):
     conn.commit()
     conn.close()
 
+
 def getAllUsers():
     conn = sqlite3.connect(dbPath)
     cursor = conn.cursor()
@@ -235,3 +237,14 @@ def getAllUsers():
     conn.commit()
     conn.close()
     return users
+
+
+def getAllInventory():
+    conn = sqlite3.connect(dbPath)
+    cursor = conn.cursor()
+    query = "SELECT * FROM Inventory"
+    cursor.execute(query, ())
+    inventory = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    return inventory
