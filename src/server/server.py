@@ -1,6 +1,7 @@
 from xmlrpc.server import SimpleXMLRPCServer
 from typing import List
 import databaseHelper
+import work_orders
 from databaseClasses import Inventory
 from transactions import Money, Cash, CreditCard, MemberCard, UnprocessedTransaction
 
@@ -28,6 +29,9 @@ def login(username, password):
             return username
     return "login###failed"
 
+def assign_mechanic(id, worker_name):
+    work_orders.assign_mechanic_work_order(id, worker_name)
+    
 
 def get_all_inventory() -> List[tuple]:
     """
@@ -104,11 +108,11 @@ def main():
     server.register_function(login)
     server.register_function(get_all_inventory)
     server.register_function(submit_transaction)
+    server.register_function(assign_mechanic)
 
     ##################
     # Listen Forever #
     ##################
-
     try:
         print("Use Control-C to exit")
         server.serve_forever()
