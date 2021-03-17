@@ -50,7 +50,7 @@ class Cash(Payment):
         return True
 
     def __str__(self):
-        return self.value
+        return self.value.__str__()
 
 
 class CreditCard(Payment):
